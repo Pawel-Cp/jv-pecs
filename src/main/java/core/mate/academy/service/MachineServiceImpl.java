@@ -1,6 +1,13 @@
 package core.mate.academy.service;
 
-import core.mate.academy.model.*;
+import core.mate.academy.model.Bulldozer;
+import core.mate.academy.model.BulldozerProducer;
+import core.mate.academy.model.Excavator;
+import core.mate.academy.model.ExcavatorProducer;
+import core.mate.academy.model.Machine;
+import core.mate.academy.model.Truck;
+import core.mate.academy.model.TruckProducer;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -8,24 +15,21 @@ import java.util.List;
  */
 public class MachineServiceImpl implements MachineService<Machine> {
 
+    private BulldozerProducer bulldozerProducer = new BulldozerProducer();
+    private TruckProducer truckProducer = new TruckProducer();
+    private ExcavatorProducer excavatorProducer = new ExcavatorProducer();
+
     @Override
     public List<Machine> getAll(Class<? extends Machine> type) {
-        BulldozerProducer bulldozerProducer = new BulldozerProducer();
-        TruckProducer truckProducer = new TruckProducer();
-        ExcavatorProducer excavatorProducer = new ExcavatorProducer();
-
-        List<? extends Machine> machines;
 
         if (type == Bulldozer.class) {
-            machines = bulldozerProducer.get();
+            return new ArrayList<>(bulldozerProducer.get());
         } else if (type == Truck.class) {
-            machines = truckProducer.get();
+            return new ArrayList<>(truckProducer.get());
         } else if (type == Excavator.class) {
-            machines = excavatorProducer.get();
-        } else {
-            return List.of();
+            return new ArrayList<>(excavatorProducer.get());
         }
-        return (List<Machine>) machines;
+        return List.of();
     }
 
     @Override
